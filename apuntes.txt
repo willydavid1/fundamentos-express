@@ -1,0 +1,63 @@
+Que es Express?
+- Express es un framework de nodejs para crear apps del lado del servidor y poder escribir nuestro servidor con este modulo (Express) y podemos escribir apps MVC este framework acepta varios paradigmas
+- Ir a la pagina de expressjs.com en api reference nos aparece que es lo que hace cada parte de express, los metodos, los enrutadores. Nos sirve de recordatorio
+
+---------- instalacion y hola mundo -------------
+
+PRIMERO CREAREMOS UN SERVIDOR CON EL MODULO DE HTTP Y DESPUES CON EXPRESS
+1- tener instalado nodejs y vsc
+2- para abrir la terminal desde vsc | ctrl + mayus + ñ
+3- creamos un server sencillo con el modulo HTTP cuando ingresen al server respondo un hola mundo en texto plano
+
+EMPEZAMOS CON EXPRESS
+1- creamos el package.json (describe nuestro proyecto) | npm init -y
+2- instalamos express en este proyecto (se crea la carpeta node_modules) | npm install express
+3- voy a hacer un servidor con express, importo express llamo al modulo me retorna un objeto que es el servidor y le digo que escuche en el puerto 3000
+4- Servidor cuando recibas una peticion get en la ruta /, ejecuta el callback y como respuesta le voy a enviar un mensaje res.send("Hola")
+
+Intalamos un modulo para no reiniciar manualmente el server cada vez que haga un cambio y guardo | npm i nodemon -D
+- Apenas lo instalamos hay una seccion llamada devDependencies (aparecen los modulos que nos ayudan a desarrollar) en el package.json
+- Para usarlo ejecutamos desde la consola | npx nodemon index.js (npx porque ese modulo no esta instalado en todo mi SO)
+
+----------------Express Routing y METODOS HTTP---------------------
+Enrutamiento o las rutas no es mas que una ruta que cuando ingresen a ella por un metodo HTTP va a ejecutar el callback
+
+1- creamos la ruta /about | app.get("/about", callback)
+2- asi podemos crear multiples ruta para nuestra aplicacion atravez del metodo get
+
+RUTAS CON METODOS POST, PUT, DELETE, asi cuando el navegador me mande una peticion con esos metodos hacemos algo puede ser guardar datos en una base de datos, eliminar o actualizar ect
+1- app.get("/about", callback)
+2- app.post("/about", callback)
+3- app.put("/about", callback)
+4- app.delete("/about", callback)
+
+Para probar esas rutas lo haremos con POSTMAN
+- Este programa sirve para testear rutas, hacemos una peticion GET a /, una de tipo POST a http://localhost:5000/about, de tipo PUT a /contact y una de tipo DELETE a /test
+
+PODEMOS RETORNAR UN JSON CUANDO ENTREN A UNA RUTA, es decir si desde un cliente pido un usuario en la ruta /user este me retorna un JSON.
+- res.json({
+    username: "Cameron",
+    lastname: "Howe"
+  });
+
+PARA MANDAR PARAMETROS A UNA RUTA HTTP POST, DESDE POSTMAN (enviar desde el cliente un json)
+- Desde headers, en el key le dicemos una propiedad Content-Type de tipo application/json
+- En body => raw : le especificamos el json a mandar
+EN EL SERVIDOR PARA VER LOS DATOS JSON QUE ME ENVIA EL CLIENTE se hace con req.body
+- Pero me muestra un undefined y no un objeto |  le decimos al servidor que entienda los formatos json, cuando un cliente lo mande app.use(express.json())
+
+PARA RECIBIR PARAMETROS DE URL ejemplo (localhost:5000/user/456)
+- Al crear la ruta definimos la variable id| app.post("/user/:id", callback)
+- Y para ver este dato | CONSOLE.LOG(req.params) RETORNA UN OBJETO CON UN ATRIBUTO ID CON VALOR DE LA URL { id: '456' } | req.params.id (retorna 456 es lo que esta en la URL)
+
+PARA RECIBIR EN UNA RUTA TODAS LAS PETICIONES SE USA EL METODO app.all("/user", callback)
+- Si coloco la ruta en el navegador no se ejecutan las demas rutas llamadas igual tengo que decirle next() para que se ejecuten las rutas que tengan ese nombre /user
+
+app.all("/user", (req, res, next) => {
+    console.log("por aqui paso")
+    res.send("terminado")
+
+    next()
+})
+
+
