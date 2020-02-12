@@ -86,9 +86,30 @@ Ya en consola veo una peticion de tipo get la ruta el codigo de estado de la pet
 
 
 ---------------- Static Files Middleware --------------
-Un Middleware que nos permite enviar archivos estaticos al frontend un html que puede tener css, javacript enlazados al html y los archivos se pueden ver en el navegador ejemplo http://localhost:5000/css/main.css
+Un Middleware que nos permite enviar archivos estaticos al frontend un html que puede tener css, javacript enlazados al html y los archivos se pueden ver en el navegador ejemplo http://localhost:5000/css/main.css me muestra el css de ese archivo
 
 - app.use(express.static("public")) | Usa el Middleware static que viene dentro de express y le paso el nombre de la carpeta.
 - Dentro de la carpeta creamos un index.html con un h1
 - y si vamos al navegador y nos vamos a / vemos el html | valida todas las rutas y si no esta esa ruta / retorna el html
 
+
+
+
+---------------------- Settings y Motor de plantillas EJS ----------------------
+Para configurar el puerto, si vamos a usar un motor de plantillas, el nombre de la app, conclusion configurar el servidor
+
+app.set("appName", "WillyExpress") | CONFIGURACION Vamos a verlo como una variable que recibe parametros 1-Nombre 2-valor y para obtener la configuracion con app.get("port") /me retorna 3000
+app.set("port", 3000) | CONFIGURACION del puerto | para obtener la configuracion app.get("port") /me retorna 3000
+
+Motor de plantillas EJS | nos permite correr js dentro de html
+- npm install ejs | instalamos el modulo, con solo instalarlo no hace falta importarlo para usarlo con express
+- app.set("view engine", "ejs") | voy a establecer como motor de plantillas de mi app a ejs
+- creo una carpeta llamada views y dentro un index.ejs que es un html
+- para mostrarlo en la ruta / |  res.render("index.ejs", {personas: data}) | le estoy pasando a la vista un objeto con un atributo people que es un arreglo
+- para usar sintaxis javacript dentro de una plantilla EJS usamos <%%> <%%> y para iterar el arreglo que le pasamos a la vista podemos hacer algo asi:
+
+<ul>
+  <% people.forEach( (persona) => {  %> 
+    <li><%= persona.name %></li>
+  <% }) %>
+</ul>
