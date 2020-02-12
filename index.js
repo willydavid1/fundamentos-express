@@ -1,16 +1,28 @@
 // importamos el modulo express | al ejecutar express esto me devuelve un objeto que es el servidor
 const express = require("express");
+const morgan = require("morgan") 
 const app = express();
 
-// le decimos al servidor que entienda los formatos json, cuando un cliente lo mande
+
+// Middlewares - es un manejador de peticion, y se ejecuta antes que lleguen a cualquier ruta | Para usar el Middleware se llaman asi: app.use(logger)
+// const logger = (req, res, next) => {
+//   console.log(`Ruta recibida: ${req.protocol}://${req.get('host')}${req.originalUrl} | en la IP: ${req.ip}`)
+
+//   next()
+// }
+
+
+// le decimos al servidor que entienda los formatos json, antes de que llegue a cualquier ruta
 app.use(express.json());
+app.use(morgan("dev")) //usa el Middleware morgan es un manejador de peticion y se ejecuta antes que lleguen a cualquier ruta
+// app.use(logger)
 
 // PARA RECIBIR EN UNA RUTA TODAS LAS PETICIONES HTTP y para seguir con una ruta que se llama igual tengo que decirle next() para que se ejecuten las rutas que tengan ese nombre /user
-app.all("/user", (req, res, next) => {
-    console.log("por aqui paso (all)")
+// app.all("/user", (req, res, next) => {
+//     console.log("por aqui paso (all)")
 
-    next() //continua con la siguiente ruta en este caso /user
-})
+//     next() //continua con la siguiente ruta en este caso /user
+// })
 
 
 // servidor cuando recibas una peticion get en la ruta /user, ejecuta el callback y como respuesta le voy a enviar un json (ese metodo json recibe un objeto)

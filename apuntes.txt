@@ -19,7 +19,8 @@ Intalamos un modulo para no reiniciar manualmente el server cada vez que haga un
 - Apenas lo instalamos hay una seccion llamada devDependencies (aparecen los modulos que nos ayudan a desarrollar) en el package.json
 - Para usarlo ejecutamos desde la consola | npx nodemon index.js (npx porque ese modulo no esta instalado en todo mi SO)
 
-----------------Express Routing y METODOS HTTP---------------------
+----------------Express Routing y METODOS HTTP ---------------------
+(recibimos datos del cliente y recibir parametros por URL)
 Enrutamiento o las rutas no es mas que una ruta que cuando ingresen a ella por un metodo HTTP va a ejecutar el callback
 
 1- creamos la ruta /about | app.get("/about", callback)
@@ -34,13 +35,13 @@ RUTAS CON METODOS POST, PUT, DELETE, asi cuando el navegador me mande una petici
 Para probar esas rutas lo haremos con POSTMAN
 - Este programa sirve para testear rutas, hacemos una peticion GET a /, una de tipo POST a http://localhost:5000/about, de tipo PUT a /contact y una de tipo DELETE a /test
 
-PODEMOS RETORNAR UN JSON CUANDO ENTREN A UNA RUTA, es decir si desde un cliente pido un usuario en la ruta /user este me retorna un JSON.
+PODEMOS RETORNAR UN JSON CUANDO ENTREN A UNA RUTA, es decir storna uni desde un cliente pido un usuario en la ruta /user este me re JSON.
 - res.json({
     username: "Cameron",
     lastname: "Howe"
   });
 
-PARA MANDAR PARAMETROS A UNA RUTA HTTP POST, DESDE POSTMAN (enviar desde el cliente un json)
+PARA MANDAR PARAMETROS A UNA RUTA HTTP POST, DESDE POSTMAN (enviar desde el cliente un json en el cuerpo de la peticion)
 - Desde headers, en el key le dicemos una propiedad Content-Type de tipo application/json
 - En body => raw : le especificamos el json a mandar
 EN EL SERVIDOR PARA VER LOS DATOS JSON QUE ME ENVIA EL CLIENTE se hace con req.body
@@ -60,4 +61,22 @@ app.all("/user", (req, res, next) => {
     next()
 })
 
+
+--------------- Middlewares  ---------------
+Un Middleware es un manejador de peticion, y se ejecuta antes que lleguen a cualquier ruta. Para procesar algo antes de llegar a la ruta
+
+- Creamos una funcion llamada logger recibe por parametro (req, res, next) y que muestra un console.log() y un next()
+- Para usar el Middleware se llaman asi | app.use(logger)
+- cuando vamos a la ruta /user o cualquier otra se ejecuta el Middleware
+
+En el Middleware podemos que a que ruta va a ir el usuario, en el server | `Ruta recibida: ${req.protocol}://${req.get('host')}${req.originalUrl}`
+- req.protocol me retorna el protocolo de la peticion
+- req.get('host') me retorna el servidor de la peticion
+- req.originalUrl me retorna la ruta que me esta pidiendo
+
+Instalaremos morgan es un manejador de peticion y se ejecuta antes que lleguen a cualquier ruta
+- npm i morgan
+- Lo importo a mi proyecto | const morgan = require("morgan") 
+- Uso el Middleware y lo llamo con un formato| app.use(morgan("dev")) //usa el Middleware
+Ya en consola veo una peticion de tipo get la ruta el codigo de estado de la peticion, el tiempo de respuesta y el peso de la respuesta
 
