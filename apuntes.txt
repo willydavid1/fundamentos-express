@@ -80,3 +80,15 @@ Instalaremos morgan es un manejador de peticion y se ejecuta antes que lleguen a
 - Uso el Middleware y lo llamo con un formato| app.use(morgan("dev")) //usa el Middleware
 Ya en consola veo una peticion de tipo get la ruta el codigo de estado de la peticion, el tiempo de respuesta y el peso de la respuesta
 
+
+
+
+
+
+---------------- Static Files Middleware --------------
+Un Middleware que nos permite enviar archivos estaticos al frontend un html que puede tener css, javacript enlazados al html y los archivos se pueden ver en el navegador ejemplo http://localhost:5000/css/main.css
+
+- app.use(express.static("public")) | Usa el Middleware static que viene dentro de express y le paso el nombre de la carpeta.
+- Dentro de la carpeta creamos un index.html con un h1
+- y si vamos al navegador y nos vamos a / vemos el html | valida todas las rutas y si no esta esa ruta / retorna el html
+

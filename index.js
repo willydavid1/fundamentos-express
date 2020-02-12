@@ -57,6 +57,11 @@ app.delete("/user/:userId", (req, res) => {
 });
 
 
+// usa el Middleware static que viene dentro de express y le paso el nombre de la carpeta, se ejecuta en / porque no hay una ruta / y retorna el html
+app.use(express.static("public"))
+
+
+
 // servidor o app quiero que escuches en el puerto 3000 y cuando inicies ejecuta el mensaje por consola
 app.listen(5000, () => {
   console.log("Servidor express disponible en el puerto 5000");
