@@ -113,3 +113,20 @@ Motor de plantillas EJS | nos permite correr js dentro de html
     <li><%= persona.name %></li>
   <% }) %>
 </ul>
+
+
+------------------------- Otros frameworks y bases de datos -----------------------------
+
+Nosotros definimos que base de datos integrar y se hace con un modulo de npm 
+
+Tambien existen ORM que nos evitan escribir consultas del DBMS (Sistema de gestión de bases de datos) solo escribimos funciones JS y este ejecuta la consulta en la base de datos
+- sequelizejs es un ORM para bases de datos SQL, nos permite hacer consultas a la DBMS sin necesidad de escribir la sintaxis de la base de datos especificamente solo que se hace a travez de funciones JS, ASI que si luego cambiamos la base de datos el codigo seguira funcionando
+- mongoose es un ORM para bases de datos NOSQL
+
+OTROS frameworks backend de node:
+- adonisJS
+- sailJS
+- koaJS
+- hapiJS
+- krakenJS
+
